@@ -12,3 +12,7 @@ html {
   font-size: max(16px, 1rem);
   line-height: 1.6;
 }
+
+body {
+  background-color: rgb(54, 54, 54);
+}
