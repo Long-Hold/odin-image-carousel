@@ -8,7 +8,7 @@
     "build": "webpack --config webpack.prod.js",
     "dev": "webpack serve --config webpack.dev.js",
     "deploy": "npm run build && gh-pages -d dist",
-    "format": "prettier . --write"
+    "format": "prettier --write src/"
   },
   "keywords": [],
   "author": "",
