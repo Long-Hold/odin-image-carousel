@@ -3,7 +3,43 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Image Carousel</title>
   </head>
-  <body></body>
+  <body>
+    <div class="carousel-outer">
+      <ol class="carousel-indicator">
+        <li data-slide-to="1" class="active"></li>
+        <li data-slide-to="2"></li>
+        <li data-slide-to="3"></li>
+      </ol>
+
+      <div class="carousel">
+        <div class="carousel-img-container active">
+          <img src="" alt="" class="carousel-img" width="500" height="500" />
+        </div>
+
+        <div class="carousel-img-container">
+          <img src="" alt="" class="carousel-img" width="500" height="500" />
+        </div>
+
+        <div class="carousel-img-container">
+          <img src="" alt="" class="carousel-img" width="500" height="500" />
+        </div>
+      </div>
+
+      <section class="carousel-controls">
+        <div class="previous">
+          <button type="button" data-direction="previous">
+            <span class="carousel-btn-icon" aria-hidden="true"></span>
+          </button>
+        </div>
+
+        <div class="previous">
+          <button type="button" data-direction="next">
+            <span class="carousel-btn-icon" aria-hidden="true"></span>
+          </button>
+        </div>
+      </section>
+    </div>
+  </body>
 </html>
