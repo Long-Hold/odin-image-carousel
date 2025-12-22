@@ -2,6 +2,13 @@ const CAROUSEL_CONTAINER = document.querySelector('.carousel-outer');
 const CAROUSEL = document.querySelector('.carousel');
 const CAROUSEL_INDICATOR = document.querySelector('.carousel-indicator');
 
+/**
+ * TODO:
+ * - Update the indicators when the transition buttons are clicked
+ *      - Make this logic usable by both button transition functions,
+ *         and indicator switch techniques.
+ */
+
 export function controlCarouselTransitions() {
     CAROUSEL_CONTAINER.addEventListener('click', (event) => {
         if (event.target instanceof HTMLButtonElement) {
