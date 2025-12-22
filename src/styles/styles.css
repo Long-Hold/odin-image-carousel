@@ -85,3 +85,7 @@ body {
 .carousel-img-container:not(.active) {
     display: none;
 }
+
+.carousel-img-container.active {
+  display: block;
+}

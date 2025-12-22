@@ -1,3 +1,4 @@
+import { controlCarouselTransitions } from "./modules/carouselController"
 import "./styles/styles.css"
 
 /**When the next or prev button is clicked,
@@ -7,3 +8,5 @@ import "./styles/styles.css"
  * then pick the first or last element in the node list
  * of images. (Wrap-around)
  */
+
+controlCarouselTransitions();
