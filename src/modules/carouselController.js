@@ -1,10 +1,15 @@
 const CAROUSEL_CONTAINER = document.querySelector('.carousel-outer');
 const CAROUSEL = document.querySelector('.carousel');
+const CAROUSEL_INDICATOR = document.querySelector('.carousel-indicator');
 
 export function controlCarouselTransitions() {
     CAROUSEL_CONTAINER.addEventListener('click', (event) => {
         if (event.target instanceof HTMLButtonElement) {
             transitionCarouselImage(event.target.dataset.direction);
+        }
+
+        if (event.target instanceof HTMLLIElement) {
+            displayIndicatedImage(event.target, event.target.dataset.slideTo)
         }
     });
 }
@@ -40,4 +45,16 @@ function getNextActiveImageElement(currentImage, transitionTo) {
     if (transitionTo === 'previous') {
         return currentImage.previousElementSibling;
     }
+}
+
+function displayIndicatedImage(indicatorElement, slideTo) {
+    const activeImage = CAROUSEL.querySelector('.active');
+    const activeIndicator = CAROUSEL_INDICATOR.querySelector('.active');
+    const imagesArray = [...CAROUSEL.querySelectorAll('.carousel-img-container')];
+
+    activeImage.classList.remove('active');
+    activeIndicator.classList.remove('active');
+
+    imagesArray[slideTo - 1].classList.add('active');
+    indicatorElement.classList.add('active');
 }
