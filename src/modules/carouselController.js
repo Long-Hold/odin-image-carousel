@@ -2,66 +2,72 @@ const CAROUSEL_CONTAINER = document.querySelector('.carousel-outer');
 const CAROUSEL = document.querySelector('.carousel');
 const CAROUSEL_INDICATOR = document.querySelector('.carousel-indicator');
 
-/**
- * TODO:
- * - Update the indicators when the transition buttons are clicked
- *      - Make this logic usable by both button transition functions,
- *         and indicator switch techniques.
- */
+const IMAGES_ARRAY = [...CAROUSEL.querySelectorAll('.carousel-img-container')];
+const INDICATOR_ARRAY = [...CAROUSEL_INDICATOR.querySelectorAll('li')];
+let CAROUSEL_INDEX = 0;
 
 export function controlCarouselTransitions() {
+    initializeArrayIndex();
+    initializeCarouselListeners();
+}
+
+/**
+ * Initializes the index value of the global index variable based on
+ * which child indicator element has the active class.
+ */
+function initializeArrayIndex() {
+    CAROUSEL_INDEX = INDICATOR_ARRAY.findIndex((element) => {
+        return element.classList.contains('active');
+    });
+}
+
+function initializeCarouselListeners() {
     CAROUSEL_CONTAINER.addEventListener('click', (event) => {
         if (event.target instanceof HTMLButtonElement) {
-            transitionCarouselImage(event.target.dataset.direction);
-        }
-
-        if (event.target instanceof HTMLLIElement) {
-            displayIndicatedImage(event.target, event.target.dataset.slideTo)
+            const clickedButton = event.target;
+            handleCarouselControlClick(clickedButton);
         }
     });
 }
 
-function transitionCarouselImage(transitionTo) {
-    const currentImage = CAROUSEL.querySelector('.active');
-    if (transitionTo === 'next') {
-        currentImage.classList.remove('active');
-        const nextActiveImage = getNextActiveImageElement(currentImage, transitionTo);
-        nextActiveImage.classList.add('active');
+function handleCarouselControlClick(clickedButton) {
+    const direction = clickedButton.dataset.direction;
+
+    if (direction === 'next') {
+        removeCurrentActiveClassElements();
+        incrementCarouselIndex();
+        setActiveElements();
     }
 
-    if (transitionTo === 'previous') {
-        currentImage.classList.remove('active');
-        const previousActiveImage = getNextActiveImageElement(currentImage, transitionTo);
-        previousActiveImage.classList.add('active');
-    }
-}
-
-function getNextActiveImageElement(currentImage, transitionTo) {
-    if (transitionTo === 'next' && currentImage.nextElementSibling === null) {
-        return CAROUSEL.querySelector('.carousel-img-container');
-    }
-
-    if (transitionTo === 'previous' && currentImage.previousElementSibling === null) {
-        return CAROUSEL.querySelector(':last-child.carousel-img-container');
-    }
-
-    if (transitionTo === 'next') {
-        return currentImage.nextElementSibling;
-    }
-
-    if (transitionTo === 'previous') {
-        return currentImage.previousElementSibling;
+    if (direction === 'previous') {
+        removeCurrentActiveClassElements();
+        decrementCarouselIndex();
+        setActiveElements();
     }
 }
 
-function displayIndicatedImage(indicatorElement, slideTo) {
-    const activeImage = CAROUSEL.querySelector('.active');
-    const activeIndicator = CAROUSEL_INDICATOR.querySelector('.active');
-    const imagesArray = [...CAROUSEL.querySelectorAll('.carousel-img-container')];
+function removeCurrentActiveClassElements() {
+    IMAGES_ARRAY[CAROUSEL_INDEX].classList.remove('active');
+    INDICATOR_ARRAY[CAROUSEL_INDEX].classList.remove('active');
+}
 
-    activeImage.classList.remove('active');
-    activeIndicator.classList.remove('active');
+function setActiveElements() {
+    IMAGES_ARRAY[CAROUSEL_INDEX].classList.add('active');
+    INDICATOR_ARRAY[CAROUSEL_INDEX].classList.add('active');
+}
 
-    imagesArray[slideTo - 1].classList.add('active');
-    indicatorElement.classList.add('active');
+function incrementCarouselIndex() {
+    if (CAROUSEL_INDEX !== (INDICATOR_ARRAY.length - 1)) {
+        CAROUSEL_INDEX += 1;
+    } else {
+        CAROUSEL_INDEX = 0;
+    }
+}
+
+function decrementCarouselIndex() {
+    if (CAROUSEL_INDEX > 0) {
+        CAROUSEL_INDEX -= 1;
+    } else {
+        CAROUSEL_INDEX = (INDICATOR_ARRAY.length - 1);
+    }
 }
