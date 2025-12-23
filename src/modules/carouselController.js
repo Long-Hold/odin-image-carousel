@@ -27,7 +27,18 @@ function initializeCarouselListeners() {
             const clickedButton = event.target;
             handleCarouselControlClick(clickedButton);
         }
+
+        if (event.target instanceof HTMLLIElement) {
+            const slideTo = event.target.dataset.slideTo;
+            handleIndicatorClick(slideTo);
+        }
     });
+}
+
+function handleIndicatorClick(slideTo) {
+    removeCurrentActiveClassElements();
+    CAROUSEL_INDEX = (Number(slideTo) - 1);
+    setActiveElements();
 }
 
 function handleCarouselControlClick(clickedButton) {
