@@ -1,3 +1,5 @@
+import { beginAutoTransition } from "./carouselAutoTransition";
+
 const CAROUSEL_CONTAINER = document.querySelector(".carousel-outer");
 const CAROUSEL = document.querySelector(".carousel");
 const CAROUSEL_INDICATOR = document.querySelector(".carousel-indicator");
@@ -9,6 +11,7 @@ let CAROUSEL_INDEX = 0;
 export function controlCarouselTransitions() {
   initializeArrayIndex();
   initializeCarouselListeners();
+  beginAutoTransition();
 }
 
 /**
